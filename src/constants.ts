@@ -33,6 +33,7 @@ export const GROK_BASE_URL = 'https://api.x.ai/v1'
 export const SILICONFLOW_BASE_URL = 'https://api.siliconflow.cn/v1'
 export const ALIBABA_QWEN_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1'
 export const INFIO_BASE_URL = 'https://api.infio.com/api/raw_message'
+export const LMSTUDIO_BASE_URL = 'http://localhost:1234/v1'
 export const JINA_BASE_URL = 'https://r.jina.ai'
 export const SERPER_BASE_URL = 'https://serpapi.com/search'
 // Pricing in dollars per million tokens

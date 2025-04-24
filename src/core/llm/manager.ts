@@ -1,4 +1,4 @@
-import { ALIBABA_QWEN_BASE_URL, DEEPSEEK_BASE_URL, GROK_BASE_URL, OPENROUTER_BASE_URL, SILICONFLOW_BASE_URL } from '../../constants'
+import { ALIBABA_QWEN_BASE_URL, DEEPSEEK_BASE_URL, GROK_BASE_URL, LMSTUDIO_BASE_URL, OPENROUTER_BASE_URL, SILICONFLOW_BASE_URL } from '../../constants'
 import { ApiProvider, LLMModel } from '../../types/llm/model'
 import {
 	LLMOptions,
@@ -45,6 +45,7 @@ class LLMManager implements LLMManagerInterface {
 	private siliconflowProvider: OpenAICompatibleProvider
 	private alibabaQwenProvider: OpenAICompatibleProvider
 	private ollamaProvider: OllamaProvider
+	private lmstudioProvider: OpenAICompatibleProvider
 	private openaiCompatibleProvider: OpenAICompatibleProvider
 	private isInfioEnabled: boolean
 
@@ -84,6 +85,12 @@ class LLMManager implements LLMManagerInterface {
 				: GROK_BASE_URL
 		)
 		this.ollamaProvider = new OllamaProvider(settings.ollamaProvider.baseUrl)
+		this.lmstudioProvider = new OpenAICompatibleProvider(
+			settings.lmstudioProvider.apiKey,
+			settings.lmstudioProvider.baseUrl && settings.lmstudioProvider.useCustomUrl ?
+				settings.lmstudioProvider.baseUrl
+				: LMSTUDIO_BASE_URL
+		)
 		this.openaiCompatibleProvider = new OpenAICompatibleProvider(settings.openaicompatibleProvider.apiKey, settings.openaicompatibleProvider.baseUrl)
 		this.isInfioEnabled = !!settings.infioProvider.apiKey
 	}
@@ -157,6 +164,12 @@ class LLMManager implements LLMManagerInterface {
 					request,
 					options,
 				)
+			case ApiProvider.LMStudio:
+				return await this.lmstudioProvider.generateResponse(
+					model,
+					request,
+					options,
+				)
 			case ApiProvider.OpenAICompatible:
 				return await this.openaiCompatibleProvider.generateResponse(model, request, options)
 			default:
@@ -198,6 +211,8 @@ class LLMManager implements LLMManagerInterface {
 				return await this.grokProvider.streamResponse(model, request, options)
 			case ApiProvider.Ollama:
 				return await this.ollamaProvider.streamResponse(model, request, options)
+			case ApiProvider.LMStudio:
+				return await this.lmstudioProvider.streamResponse(model, request, options)
 			case ApiProvider.OpenAICompatible:
 				return await this.openaiCompatibleProvider.streamResponse(model, request, options)
 		}

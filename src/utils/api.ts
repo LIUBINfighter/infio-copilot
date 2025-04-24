@@ -1485,6 +1485,8 @@ export const GetProviderModels = async (provider: ApiProvider): Promise<Record<s
 			return groqModels
 		case ApiProvider.Grok:
 			return grokModels
+		case ApiProvider.LMStudio:
+			return {}
 		case ApiProvider.Ollama:
 			return {}
 		case ApiProvider.OpenAICompatible:

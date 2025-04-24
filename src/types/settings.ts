@@ -159,6 +159,18 @@ const GrokProviderSchema = z.object({
 	useCustomUrl: false
 })
 
+const LMStudioProviderSchema = z.object({
+	name: z.literal('LMStudio'),
+	apiKey: z.string().catch(''),
+	baseUrl: z.string().catch(''),
+	useCustomUrl: z.boolean().catch(false)
+}).catch({
+	name: 'LMStudio',
+	apiKey: '',
+	baseUrl: '',
+	useCustomUrl: false
+})
+
 const ollamaModelSchema = z.object({
 	baseUrl: z.string().catch(''),
 	model: z.string().catch(''),
@@ -218,6 +230,7 @@ export const InfioSettingsSchema = z.object({
 	ollamaProvider: OllamaProviderSchema,
 	groqProvider: GroqProviderSchema,
 	grokProvider: GrokProviderSchema,
+	lmstudioProvider: LMStudioProviderSchema,
 	openaicompatibleProvider: OpenAICompatibleProviderSchema,
 
 	// Chat Model start list
@@ -226,7 +239,7 @@ export const InfioSettingsSchema = z.object({
 		modelId: z.string(),
 	})).catch([]),
 
-	// Chat Model 
+	// Chat Model
 	chatModelProvider: z.nativeEnum(ApiProvider).catch(ApiProvider.OpenRouter),
 	chatModelId: z.string().catch(''),
 

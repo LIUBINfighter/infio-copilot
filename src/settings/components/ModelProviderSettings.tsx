@@ -25,6 +25,7 @@ type ProviderSettingKey =
 	| 'groqProvider'
 	| 'grokProvider'
 	| 'ollamaProvider'
+	| 'lmstudioProvider'
 	| 'openaicompatibleProvider';
 
 const keyMap: Record<ApiProvider, ProviderSettingKey> = {
@@ -39,6 +40,7 @@ const keyMap: Record<ApiProvider, ProviderSettingKey> = {
 	'Groq': 'groqProvider',
 	'Grok': 'grokProvider',
 	'Ollama': 'ollamaProvider',
+	'LMStudio': 'lmstudioProvider',
 	'OpenAICompatible': 'openaicompatibleProvider',
 };
 
